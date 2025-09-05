@@ -1,0 +1,227 @@
+/* Reset box-sizing global */
+* {
+  box-sizing: border-box;
+}
+
+/* Body + fond avec animation zoom */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: #000; /* fallback */
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('1.png') no-repeat center center fixed;
+  background-size: cover;
+  filter: brightness(0.6);
+  animation: zoomPan 20s infinite alternate ease-in-out;
+  z-index: -1;
+}
+
+@keyframes zoomPan {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(-15px, -15px); }
+}
+
+/* Conteneur principal — centrage parfait */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* hauteur écran */
+  padding: 20px;
+  position: relative;
+}
+
+/* Conteneurs formulaire sign-in & sign-up */
+.form-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  padding: 30px 25px;
+  width: 420px;
+  max-width: 90vw;
+  transition: all 0.5s ease-in-out;
+  animation: fadeInUp 1s ease forwards;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+/* Position par défaut */
+.sign-in {
+  z-index: 2;
+}
+
+.sign-up {
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Quand container actif */
+.container.active .sign-in {
+  transform: translateX(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.active .sign-up {
+  transform: translateX(0);
+  opacity: 1;
+  z-index: 3;
+}
+
+/* Animation fadeInUp */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Titres */
+form h1 {
+  color: #c00;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.8em;
+}
+
+/* Icônes réseaux sociaux */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.social-icons a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  color: #333;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.social-icons a:hover {
+  background-color: #c00;
+  color: #fff;
+}
+
+/* Labels et inputs */
+form span {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #222;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 12px 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 18px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+form input[type="text"]:focus {
+  border-color: #c00;
+  box-shadow: 0 0 6px rgba(204,0,0,0.4);
+  outline: none;
+}
+
+/* Messages d'erreur */
+form span.error-text {
+  color: #d00;
+  font-size: 13px;
+  margin-top: -14px;
+  margin-bottom: 18px;
+  display: block;
+}
+
+/* Bouton */
+button[type="submit"] {
+  width: 100%;
+  background-color: #c00;
+  color: #fff;
+  font-size: 16px;
+  padding: 14px 0;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #900;
+  transform: scale(1.03);
+}
+
+/* Lien retour */
+form a {
+  display: block;
+  margin-top: 15px;
+  text-align: center;
+  color: #c00;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+form a:hover {
+  color: #900;
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    align-items: flex-start;
+    padding-top: 30px;
+  }
+  .form-container {
+    width: 100%;
+    max-height: none;
+    transform: none !important;
+    opacity: 1 !important;
+    padding: 20px 15px;
+  }
+  body {
+    overflow-y: auto;
+  }
+  form h1 {
+    font-size: 1.4em;
+  }
+  form input[type="text"] {
+    font-size: 14px;
+    padding: 10px 10px;
+  }
+  button[type="submit"] {
+    font-size: 14px;
+    padding: 12px 0;
+  }
+}
